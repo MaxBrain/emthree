@@ -2,6 +2,7 @@ local M = {}
 
 local async = require "emthree.internal.async"
 local utils = require "emthree.internal.utils"
+local camera = require "orthographic.camera"
 
 M.REMOVE = hash("emthree_remove")
 M.CHANGE = hash("emthree_change")
@@ -1001,7 +1002,7 @@ end
 function M.on_input(board, action)
 	assert(board, "You must provide a board")
 	assert(action.pressed or action.released, "You must provide either a pressed or released action")
-	local x, y = M.screen_to_slot(board, action.x, action.y)
+	local x, y = M.screen_to_slot(board, action.screen_x, action.screen_y)
 	local block = M.get_block(board, x, y)
 	if block and (block.blocker or block.spawner) then
 		return
@@ -1082,10 +1083,10 @@ end
 function M.screen_to_slot(board, x, y)
 	assert(board, "You must provide a board")
 	assert(x and y, "You must provide a position")
+	local p = camera.window_to_world(nil, vmath.vector3(x, y, 0))
 	local pos = go.get_world_position()
-	local scale = go.get_world_scale()
-	local x = math.floor((x - pos.x) / (board.block_size * scale.x))
-	local y = math.floor((y - pos.y) / (board.block_size * scale.y))
+	local x = math.floor((p.x - pos.x) / board.block_size)
+	local y = math.floor((p.y - pos.y) / board.block_size)
 	return x, y
 end
 
@@ -1102,6 +1103,22 @@ function M.slot_to_screen(board, x, y)
 	local x = (board.block_size / 2) + (board.block_size * x)
 	local y = (board.block_size / 2) + (board.block_size * y)
 	return x, y
+end
+
+-- Convert a board position to a screen position
+-- @param board
+-- @param x
+-- @param y
+-- @return vector3 position
+function M.slot_to_screen_global(board, x, y)
+	assert(board, "You must provide a board")
+	assert(x and y, "You must provide a position")
+	local x = (board.block_size / 2) + (board.block_size * x)
+	local y = (board.block_size / 2) + (board.block_size * y)
+	local pos = go.get_world_position()
+	pos.x = pos.x + x
+	pos.y = pos.y + y
+	return pos
 end
 
 

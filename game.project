@@ -1,10 +1,11 @@
 [project]
 title = Emthree
 version = 0.1
-dependencies = 
+dependencies#0 = https://github.com/britzl/defold-orthographic/archive/refs/tags/3.3.2.zip
 
 [bootstrap]
 main_collection = /examples/examples.collectionc
+render = /orthographic/render/orthographic.renderc
 
 [input]
 game_binding = /input/game.input_bindingc

@@ -6,15 +6,13 @@ Emthree is a match three engine for Defold.
 ## Add project dependencies
 You can use Emthree in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/). Open your game.project file and in the dependencies field under project add:
 
-https://github.com/britzl/emthree/archive/master.zip
+https://github.com/MaxBrain/emthree/archive/master.zip
 
-Or point to the ZIP file of a [specific release](https://github.com/britzl/emthree/releases).
+Or point to the ZIP file of a [specific release](https://github.com/MaxBrain/emthree/releases).
 
+Add defold-orthographic
 
-# Examples
-Two examples, one basic and one a bit more advanced are available to try here:
-
-* https://britzl.github.io/Emthree/index.html
+https://github.com/britzl/defold-orthographic/archive/refs/tags/3.3.2.zip
 
 
 # Usage
